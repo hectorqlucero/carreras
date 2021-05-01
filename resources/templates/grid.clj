@@ -32,21 +32,11 @@
       (build-form-row table id))
     (catch Exception e (.getMessage e))))
 
-;; Form without an image upload field
 (defn users-save
   [{params :params}]
   (try
     (let [table "users"]
       (build-form-save params table))
-    (catch Exception e (.getMessage e))))
-
-;; Form with an image upload filed
-(defn eventos-save
-  [{params :params}]
-  (try
-    (let [table "eventos"
-          upload-folder "eventos"]
-      (build-form-save params table upload-folder))
     (catch Exception e (.getMessage e))))
 
 (defn users-delete
