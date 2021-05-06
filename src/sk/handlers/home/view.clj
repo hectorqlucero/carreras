@@ -87,7 +87,7 @@
       {:id "fecha_nacimiento"
        :name "fecha_nacimiento"
        :class "easyui-datebox"
-       :prompt "mm/dd/yyy"
+       :prompt "mm/dd/aaaa ejemplo: 02/07/1957  es Febrero 7 1957"
        :data-options "label:'Fecha de Nacimiento:',labelPosition:'top',required:true,width:'100%'"})
     (build-field
       {:id "direccion"

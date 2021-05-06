@@ -90,7 +90,7 @@
   (try
     (let [table "carreras"
           email-body (email-body params)]
-      (if (future (send-email host email-body))
+      (if (send-email host email-body)
         (build-form-save params table)))
     (catch Exception e (.getMessage e))))
 ;; End registrar
