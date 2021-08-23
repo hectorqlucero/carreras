@@ -1,8 +1,8 @@
 (ns sk.models.crud
-  (:require [clojure.java.io :as io]
-            [clojure.string :as st]
+  (:require [cheshire.core :refer [generate-string]]
+            [clojure.java.io :as io]
             [clojure.java.jdbc :as j]
-            [cheshire.core :refer [generate-string]])
+            [clojure.string :as st])
   (:import java.text.SimpleDateFormat))
 
 (defn get-config

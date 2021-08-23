@@ -1,10 +1,6 @@
 (ns sk.handlers.home.view
-  (:require
-    [hiccup.page :refer [include-js]]
-    [sk.models.util :refer [build-form
-                            build-field
-                            build-radio-buttons
-                            build-button]]))
+  (:require [hiccup.page :refer [include-js]]
+            [sk.models.util :refer [build-button build-field build-form build-radio-buttons]]))
 
 (defn registrar-fields
   [carrera_id]

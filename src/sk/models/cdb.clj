@@ -1,8 +1,6 @@
 (ns sk.models.cdb
-  (:require [sk.models.crud :refer [db
-                                    Query!
-                                    Insert-multi]]
-            [noir.util.crypt :as crypt]))
+  (:require [noir.util.crypt :as crypt]
+            [sk.models.crud :refer [Insert-multi Query! db]]))
 
 
 ;; Start users table
