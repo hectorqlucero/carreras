@@ -23,8 +23,9 @@
 (defn carrera-grid
   [{params :params}]
   (try
-    (let [table "carrera"]
-      (build-grid params table))
+    (let [table "carrera"
+          args {:sort-extra "id"}]
+      (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
 (defn carrera-form

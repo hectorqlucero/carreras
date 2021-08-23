@@ -35,9 +35,9 @@
       title
       "/categorias"
       (list
-        [:th {:data-options "field:'id',sortable:true"} "ID"]
-        [:th {:data-options "field:'descripcion',sortable:true"} "Categoria"]
-        [:th {:data-options "field:'activa',sortable:true"} "Activa"]))
+        [:th {:data-options "field:'id',sortable:true,fixed:false"} "ID"]
+        [:th {:data-options "field:'descripcion',sortable:true,fixed:false"} "Categoria"]
+        [:th {:data-options "field:'activa',sortable:true,fixed:false"} "Activa"]))
     (build-toolbar)
     (build-dialog title dialog-fields)))
 

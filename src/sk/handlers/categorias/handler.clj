@@ -23,8 +23,9 @@
 (defn categorias-grid
   [{params :params}]
   (try
-    (let [table "categorias"]
-      (build-grid params table))
+    (let [table "categorias"
+          args {:sort-extra "id"}]
+      (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
 (defn categorias-form
