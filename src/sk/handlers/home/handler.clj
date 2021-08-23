@@ -49,7 +49,7 @@
   [_]
   (try
     (let [title "carreras"
-          ok (get-session-id)
+          ok -1
           crow (first (Query db "select * from carrera where activa = 'S'"))
           content (registrar-view (anti-forgery-field) crow)
           scripts (registrar-view-scripts)]
@@ -61,7 +61,6 @@
   [params]
   (try
     (let [nombre (str (:nombre params) " " (:apell_paterno params) " " (:apell_materno params))
-          email (:email params)
           domicilio (:direccion params)
           telefono (:telefono params)
           email (:email params)
