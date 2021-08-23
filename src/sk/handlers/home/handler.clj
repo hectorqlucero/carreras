@@ -1,20 +1,14 @@
 (ns sk.handlers.home.handler
   (:require [cheshire.core :refer [generate-string]]
-            [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.models.crud :refer [db
-                                    Query
-                                    config
-                                    build-form-save]]
-            [sk.models.email :refer [host send-email]]
-            [sk.models.util :refer [get-session-id]]
-            [sk.layout :refer [application]]
-            [sk.handlers.home.view :refer [registrar-view
-                                           registrar-view-scripts
-                                           login-view 
-                                           login-script]]
+            [noir.response :refer [redirect]]
             [noir.session :as session]
             [noir.util.crypt :as crypt]
-            [noir.response :refer [redirect]]))
+            [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.handlers.home.view :refer [login-script login-view registrar-view registrar-view-scripts]]
+            [sk.layout :refer [application]]
+            [sk.models.crud :refer [Query build-form-save config db]]
+            [sk.models.email :refer [host send-email]]
+            [sk.models.util :refer [get-session-id]]))
 
 ;; Start Main
 (def main-sql
@@ -89,7 +83,7 @@
   (try
     (let [table "carreras"
           email-body (email-body params)]
-      (if (send-email host email-body)
+      (when (send-email host email-body)
         (build-form-save params table)))
     (catch Exception e (.getMessage e))))
 ;; End registrar

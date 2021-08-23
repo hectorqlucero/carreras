@@ -1,7 +1,6 @@
 (ns sk.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
-            [sk.models.crud :refer [config]]
-            [sk.models.util :refer [user-level]]))
+            [sk.models.crud :refer [config]]))
 
 (defn build-admin []
   (list

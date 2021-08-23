@@ -1,12 +1,9 @@
 (ns sk.handlers.carrera.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id
-                                    user-level]]
+  (:require [sk.handlers.carrera.view :refer [carrera-scripts carrera-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.carrera.view :refer [carrera-view carrera-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id user-level]]))
 
 (defn carrera
   [_]
@@ -14,12 +11,11 @@
     (let [title "Carreras Definición"
           ok (get-session-id)
           js (carrera-scripts)
-          content (carrera-view title)
-          level (user-level)]
+          content (carrera-view title)]
       (if
-        (or
-          (= (user-level) "A")
-          (= (user-level) "S"))
+       (or
+        (= (user-level) "A")
+        (= (user-level) "S"))
         (application title ok js content)
         (application title ok nil "Solo <strong>Administradores</strong> pueden accesar esta opción!!!")))
     (catch Exception e (.getMessage e))))
