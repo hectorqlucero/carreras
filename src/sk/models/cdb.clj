@@ -105,9 +105,9 @@
   (Insert-multi db :users users-rows)
   (Query! db "UNLOCK TABLES;"))
 
-(defn reset-database
-  "Removes existing tables and re-creates them"
-  []
-  (drop-tables)
-  (create-tables)
-  (populate-tables))
+;; (defn reset-database
+;;   "Removes existing tables and re-creates them"
+;;   []
+;;   (drop-tables)
+;;   (create-tables)
+;;   (populate-tables))
