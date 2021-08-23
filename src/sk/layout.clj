@@ -4,7 +4,7 @@
 
 (defn build-admin []
   (list
-    [:a.dropdown-item {:href "/admin/users"} "Usuarios"]))
+   [:a.dropdown-item {:href "/admin/users"} "Usuarios"]))
 
 (defn menus-private []
   (list
@@ -38,6 +38,16 @@
      [:ul.navbar-nav
       [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]]
       [:li.nav-item [:a.nav-link {:href "/home/login"} "Conectar"]]]]]))
+
+(defn menus-none []
+  (list
+   [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
+    [:a.navbar-brand {:href "#"} (:site-name config)]
+    [:button.navbar-toggler {:type "button"
+                             :data-toggle "collapse"
+                             :data-target "#collapsibleNavbar"}
+     [:span.navbar-toggler-icon]]
+    [:div#collapsibleNavbar.collapse.navbar-collapse]]))
 
 (defn app-css []
   (list
@@ -81,7 +91,7 @@
                   :href "data:image/x-icon;,"}]]
          [:body
           (cond
-            (= ok -1) nil
+            (= ok -1) (menus-none)
             (= ok 0) (menus-public)
             (> ok 0) (menus-private))
           [:div#content.container-fluid.easyui-panel {:style "margin-top:75px;border:none;"
