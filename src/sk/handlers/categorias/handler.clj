@@ -1,12 +1,9 @@
 (ns sk.handlers.categorias.handler
-  (:require [sk.models.crud :refer [build-form-row
-                                    build-form-save
-                                    build-form-delete]]
-            [sk.models.grid :refer [build-grid]]
-            [sk.models.util :refer [get-session-id
-                                    user-level]]
+  (:require [sk.handlers.categorias.view :refer [categorias-scripts categorias-view]]
             [sk.layout :refer [application]]
-            [sk.handlers.categorias.view :refer [categorias-view categorias-scripts]]))
+            [sk.models.crud :refer [build-form-delete build-form-row build-form-save]]
+            [sk.models.grid :refer [build-grid]]
+            [sk.models.util :refer [get-session-id user-level]]))
 
 (defn categorias
   [_]
@@ -14,14 +11,13 @@
     (let [title "Categorias"
           ok (get-session-id)
           js (categorias-scripts)
-          content (categorias-view title)
-          level (user-level)]
+          content (categorias-view title)]
       (if
-        (or
-          (= (user-level) "A")
-          (= (user-level) "S"))
-      (application title ok js content)
-      (application title ok nil "Solo <strong>administradores></strong> pueden accesar esta opción!!!")))
+       (or
+        (= (user-level) "A")
+        (= (user-level) "S"))
+        (application title ok js content)
+        (application title ok nil "Solo <strong>administradores></strong> pueden accesar esta opción!!!")))
     (catch Exception e (.getMessage e))))
 
 (defn categorias-grid

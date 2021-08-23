@@ -1,6 +1,6 @@
 (ns sk.core-test
-  (:require [clojure.test :refer :all]
-            [sk.core :refer :all]))
+  (:require [clojure.test :refer [testing is]]
+            [sk.core :refer [deftest a-test]]))
 
 (deftest a-test
   (testing "FIXME, I fail."

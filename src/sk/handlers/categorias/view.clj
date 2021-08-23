@@ -1,12 +1,7 @@
 (ns sk.handlers.categorias.view
   (:require [hiccup.page :refer [include-js]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
-            [sk.models.util :refer [build-table
-                                    build-dialog
-                                    build-dialog-buttons
-                                    build-radio-buttons
-                                    build-toolbar
-                                    build-field]]))
+            [sk.models.util :refer [build-dialog build-field build-radio-buttons build-table build-toolbar]]))
 
 (def dialog-fields
   (list
