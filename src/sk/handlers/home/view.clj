@@ -55,8 +55,7 @@
     (build-field
       {:id "telefono"
        :name "telefono"
-       :class "easyui-maskedbox"
-       :mask "(999) 999-9999"
+       :class "easyui-textbox"
        :data-options "label:'Telefono:',labelPosition:'top',width:'100%'"})
     (build-field
       {:id "email"
