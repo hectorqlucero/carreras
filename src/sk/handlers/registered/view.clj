@@ -47,13 +47,13 @@
     (html5
      [:div
       [:center [:h1 [:strong (:carrera row)]]]
-      [:center [:h2 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "No. Dorsal: " (:id row)]]
+      [:center [:h2 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
       [:span "DATOS PERSONALES:"][:span {:style "float:right;"} [:strong "Fecha: " (:date row)]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
        [:tbody
         [:tr
          [:td {:colspan 3
-               :style table-style} [:strong "Nombre: "] (str (:nombre row) (:apell_paterno row) (:apell_materno row))]]
+               :style table-style} [:strong "Nombre: "] (str (:nombre row) "&nbsp;"(:apell_paterno row) "&nbsp;"(:apell_materno row))]]
         [:tr
          [:td {:style table-style} [:strong "Categoria: "] (:categoria row)]
          [:td {:colspan 2
@@ -61,7 +61,7 @@
         [:tr
          [:td {:style table-style} [:strong "Ciudad: "] (:ciudad row)]
          [:td {:style table-style} [:strong "Club: "] (:club row)]
-         [:td {:style table-style} [:strong "Sexo: "] (:categoria row)]]
+         [:td {:style table-style} [:strong "Sexo: "] (:sexo row)]]
         [:tr
          [:td {:colspan 3
                :style table-style} [:strong "Email: "] (:email row)]]
@@ -70,6 +70,8 @@
                :style table-style} [:strong "Dirección: "] (:direccion row)]]]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
        [:tbody
+        [:tr
+         [:td {:style table-style} [:strong "Fecha de Registro: "] [:span {:style "float:right;"} [:strong "No: "]"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]]]
         [:tr
          [:td {:style table-style}[:strong "Costo del Evento el día de registro $ : "]]]]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
@@ -103,8 +105,10 @@
           [:center [:p [:strong "Firma y Aceptación del participante y/o tutor:"]]]]])))
 
 (defn registered-pdf [id]
-  (let [html (build-html id)]
+  (let [html (build-html id)
+        filename (str "registro_" id ".pdf")]
     {:headers {"Content-Type" "application/pdf"
-               "Content-Disposition" "file=inline;filename=registro.pdf"}
+               "Content-Disposition" (str "attachment;filename=" filename)
+               "Cache-Control" "no-cache,no-store,max-age=0,must-revalidate,pre-check=0,post-check=0"}
      :body (as-stream (gen-pdf html
                                :margin {:top 20 :right 15 :bottom 50 :left 15}))}))

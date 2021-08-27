@@ -43,7 +43,7 @@
    carreras.club,
    carreras.carrera_id,
    carreras.categoria_id,
-   DATE_FORMAT(carreras.date, '%d/%m/%Y') as date,
+   DATE_FORMAT(carreras.last_updated, '%d/%m/%Y') as date,
    carrera.p1,
    carrera.p2,
    carrera.p3,

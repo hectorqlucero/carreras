@@ -38,13 +38,14 @@
 (def body
   {:from    "hectorqlucero@fastmail.com"
    :to      "hectorqlucero@gmail.com"
-   :subject "Hi!"
+   :subject "Hola Marco, aqui un attachment de un pdf generado del sistema."
    :body    [{:type    "text/html;charset=utf-8"
               :content "<b>Testing</b>"}
-             {:type :attachment
-              :content (java.io.File. "/tmp/registro.pdf")}]})
+             {:type :inline
+              :content (java.io.File. "/tmp/registro_47.pdf")
+              :content-type "application/pdf"}]})
 
 (defn send-email [host body]
   (send-message host body))
 
-;;(send-email host body)
+(send-email host body)
