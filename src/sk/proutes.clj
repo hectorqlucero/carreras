@@ -2,7 +2,8 @@
   (:require [compojure.core :refer [GET POST defroutes]]
             [sk.handlers.admin.users.handler :as users]
             [sk.handlers.carrera.handler :as carrera]
-            [sk.handlers.categorias.handler :as categorias]))
+            [sk.handlers.categorias.handler :as categorias]
+            [sk.handlers.registered.handler :as registered]))
 
 (defroutes proutes
   ;; Start users
@@ -28,4 +29,9 @@
   (POST "/categorias/save" req [] (categorias/categorias-save req))
   (POST "/categorias/delete" req [] (categorias/categorias-delete req))
   ;; End categorias
+
+  ;; Start display registered
+  (GET "/display/registered" req [] (registered/registered req))
+  (GET "/imprimir/registered/:id" [id] (registered/imprimir id))
+  ;; End display registered
   )

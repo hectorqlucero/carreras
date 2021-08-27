@@ -36,11 +36,14 @@
    :ssl  true})
 
 (def body
-  {:from    "marcopescador@lucero-systems.cf"
+  {:from    "hectorqlucero@fastmail.com"
    :to      "hectorqlucero@gmail.com"
    :subject "Hi!"
    :body    [{:type    "text/html;charset=utf-8"
-              :content "<b>Testing</b>"}]})
+              :content "<b>Testing</b>"}
+             {:type :attachment
+              :content (java.io.File. "/tmp/registro.pdf")}]})
+
 (defn send-email [host body]
   (send-message host body))
 

@@ -18,6 +18,7 @@
      [:ul.navbar-nav
       [:li.nav-item [:a.nav-link {:href "/carrera"} "Carreras"]]
       [:li.nav-item [:a.nav-link {:href "/categorias"} "Categorias"]]
+      [:li.nav-item [:a.nav-link {:href "/display/registered"} "Registrados"]]
       [:li.nav-item.dropdown
        [:a.nav-link.dropdown-toggle {:href "#"
                                      :id "navdrop"

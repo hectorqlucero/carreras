@@ -45,7 +45,13 @@
   "CREATE TABLE carrera (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   descripcion varchar(200) DEFAULT NULL,
-  activa char(1) DEFAULT NULL COMMENT 'S=si,N=No'
+  activa char(1) DEFAULT NULL COMMENT 'S=si,N=No',
+  p1 TEXT DEFAULT NULL,
+  p2 TEXT DEFAULT NULL,
+  p3 TEXT DEFAULT NULL,
+  p4 TEXT DEFAULT NULL,
+  d1 TEXT DEFAULT NULL,
+  d2 TEXT DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 ;; End carrera table
 
@@ -75,6 +81,7 @@
   club varchar(100) DEFAULT NULL,
   carrera_id int NOT NULL,
   categoria_id int NOT NULL,
+  date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_carreras_carrera_id FOREIGN KEY (carrera_id) REFERENCES carrera (id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT fk_carreras_categoria_id FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON UPDATE CASCADE ON DELETE CASCADE
   ) ENGINE=InnoDB CHARSET=utf8")
@@ -109,3 +116,7 @@
   (drop-tables)
   (create-tables)
   (populate-tables))
+
+(defn migrate []
+  (Query! db "DROP table IF EXISTS carreras")
+  (Query! db carreras-sql))
