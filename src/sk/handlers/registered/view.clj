@@ -49,7 +49,7 @@
       [:center [:h1 [:strong (:carrera row)]]]
       [:center [:h2 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
       [:span "DATOS PERSONALES:"][:span {:style "float:right;"} [:strong "Fecha: " (:date row)]]
-      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
+      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr
          [:td {:colspan 3
@@ -68,13 +68,13 @@
         [:tr
          [:td {:colspan 3
                :style table-style} [:strong "Dirección: "] (:direccion row)]]]]
-      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
+      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr
          [:td {:style table-style} [:strong "Fecha de Registro: "] [:span {:style "float:right;"} [:strong "No: "]"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]]]
         [:tr
          [:td {:style table-style}[:strong "Costo del Evento el día de registro $ : "]]]]]
-      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:1.5em;width:100%;"}
+      [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr {:align "center"}
          [:td [:strong "Políticas y reglas del Evento"]]]

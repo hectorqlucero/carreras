@@ -1,10 +1,26 @@
 (ns sk.layout
   (:require [hiccup.page :refer [html5 include-css include-js]]
-            [sk.models.crud :refer [config]]))
+            [sk.models.crud :refer [config]]
+            [sk.models.util :refer [user-level]]))
 
 (defn build-admin []
   (list
    [:a.dropdown-item {:href "/admin/users"} "Usuarios"]))
+
+(defn user-menus []
+  [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]])
+
+(defn admin-menus []
+  (list
+   [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]]
+   [:li.nav-item [:a.nav-link {:href "/display/registered"} "Registrados"]]))
+
+(defn system-menus []
+  (list
+   [:li.nav-item [:a.nav-link {:href "/carrera"} "Carreras"]]
+   [:li.nav-item [:a.nav-link {:href "/categorias"} "Categorias"]]
+   [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]]
+   [:li.nav-item [:a.nav-link {:href "/display/registered"} "Registrados"]]))
 
 (defn menus-private []
   (list
@@ -16,15 +32,19 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      [:li.nav-item [:a.nav-link {:href "/carrera"} "Carreras"]]
-      [:li.nav-item [:a.nav-link {:href "/categorias"} "Categorias"]]
-      [:li.nav-item [:a.nav-link {:href "/display/registered"} "Registrados"]]
-      [:li.nav-item.dropdown
-       [:a.nav-link.dropdown-toggle {:href "#"
-                                     :id "navdrop"
-                                     :data-toggle "dropdown"} "Administrar"]
-       [:div.dropdown-menu
-        (build-admin)]]
+      (when
+       (= (user-level) "U") (user-menus))
+      (when
+       (= (user-level) "A") (admin-menus))
+      (when
+       (= (user-level) "S") (system-menus))
+      (when (= (user-level) "S")
+        [:li.nav-item.dropdown
+         [:a.nav-link.dropdown-toggle {:href "#"
+                                       :id "navdrop"
+                                       :data-toggle "dropdown"} "Administrar"]
+         [:div.dropdown-menu
+          (build-admin)]])
       [:li.nav-item [:a.nav-link {:href "/home/logoff"} "Salir"]]]]]))
 
 (defn menus-public []
