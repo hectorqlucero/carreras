@@ -32,12 +32,9 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      (when
-       (= (user-level) "U") (user-menus))
-      (when
-       (= (user-level) "A") (admin-menus))
-      (when
-       (= (user-level) "S") (system-menus))
+      (when (= (user-level) "U") (user-menus))
+      (when (= (user-level) "A") (admin-menus))
+      (when (= (user-level) "S") (system-menus))
       (when (= (user-level) "S")
         [:li.nav-item.dropdown
          [:a.nav-link.dropdown-toggle {:href "#"
