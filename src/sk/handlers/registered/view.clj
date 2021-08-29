@@ -46,8 +46,8 @@
   (let [row (get-register-row id)]
     (html5
      [:div
-      [:center [:h1 [:strong (:carrera row)]]]
-      [:center [:h2 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
+      [:center [:h2 [:strong (:carrera row)]]]
+      [:center [:h3 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
       [:span "DATOS PERSONALES:"][:span {:style "float:right;"} [:strong "Fecha: " (:date row)]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
