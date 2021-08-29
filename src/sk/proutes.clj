@@ -3,7 +3,8 @@
             [sk.handlers.admin.users.handler :as users]
             [sk.handlers.carrera.handler :as carrera]
             [sk.handlers.categorias.handler :as categorias]
-            [sk.handlers.registered.handler :as registered]))
+            [sk.handlers.registered.handler :as registered]
+            [sk.handlers.mensajes.handler :as mensajes]))
 
 (defroutes proutes
   ;; Start users
@@ -34,4 +35,12 @@
   (GET "/display/registered" req [] (registered/registered req))
   (GET "/imprimir/registered/:id" [id] (registered/imprimir id))
   ;; End display registered
+
+;; Start categorias
+(GET "/mensajes"  req [] (mensajes/mensajes req))
+(POST "/mensajes" req [] (mensajes/mensajes-grid req))
+(GET "/mensajes/edit/:id" [id] (mensajes/mensajes-form id))
+(POST "/mensajes/save" req [] (mensajes/mensajes-save req))
+(POST "/mensajes/delete" req [] (mensajes/mensajes-delete req))
+;; End categorias
   )

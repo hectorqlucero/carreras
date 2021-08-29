@@ -1,7 +1,6 @@
 (ns sk.models.cdb
   (:require [noir.util.crypt :as crypt]
-            [sk.models.crud :refer [Insert-multi Query! db]]))
-
+            [sk.models.crud :refer [Insert-multi Query! Query db]]))
 
 ;; Start users table
 (def users-sql
@@ -87,18 +86,30 @@
   ) ENGINE=InnoDB CHARSET=utf8")
 ;; End carreras table
 
+;; Start mensajes table
+(def mensajes-sql
+  "CREATE TABLE mensajes (  
+  id int NOT NULL primary key AUTO_INCREMENT comment 'primary key',
+  registrar_mensaje text DEFAULT NULL,
+  correo_mensaje text DEFAULT NULL,
+  activa char(1) DEFAULT NULL COMMENT 'S=si,N=No'
+) ENGINE=InnoDB CHARSET=utf8")
+;; End mensajes table
+
 (defn drop-tables 
   "Drops tables if they exist"
   []
   (Query! db "DROP table IF EXISTS carreras")
   (Query! db "DROP table IF EXISTS categorias")
   (Query! db "DROP table IF EXISTS carrera")
+  (Query! db "DROP table IF EXISTS mensajes")
   (Query! db "DROP table IF EXISTS users"))
 
 (defn create-tables
   "Creates tables"
   []
   (Query! db users-sql)
+  (Query! db mensajes-sql)
   (Query! db carrera-sql)
   (Query! db categorias-sql)
   (Query! db carreras-sql))
@@ -118,5 +129,7 @@
   (populate-tables))
 
 (defn migrate []
-  (Query! db "DROP table IF EXISTS carreras")
-  (Query! db carreras-sql))
+  (Query! db "DROP table IF EXISTS mensajes")
+  (Query! db mensajes-sql))
+
+;;(migrate)

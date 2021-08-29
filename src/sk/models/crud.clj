@@ -318,14 +318,15 @@
 
 (defn process-regular-form
   "Standard form save ex. (build-for-save params 'eventos')"
-  [params table]
+  [params table success-msg]
   (try
     (let [id (crud-fix-id (:id params))
           postvars (build-postvars table params)
           result (Save db (keyword table) postvars ["id = ?" id])]
-      (if (seq result) 
-        (generate-string {:success "Procesado con éxito!"})
-        (generate-string {:error "No se puede procesar!"})))
+      (if (seq result)
+        (generate-string {:success success-msg})
+        (generate-string {:error "No se puede procesar!"}))
+      result)
     (catch Exception e (.getMessge e))))
 
 ;; Start upload form
@@ -349,19 +350,20 @@
     id))
 
 (defn process-upload-form
-  [params table folder]
+  [params table success-msg]
   (try
     (let [id (crud-fix-id (:id params))
           file (:file params)
           postvars (dissoc (build-postvars table params) :file)
           the-id (str (get-id id postvars table))
-          path (str (:uploads config) folder "/")
+          path (str (:uploads config) "/")
           image-name (crud-upload-image table file the-id path)
           postvars (assoc postvars :imagen image-name :id the-id)
           result (Save db (keyword table) postvars ["id = ?" the-id])]
-      (if (seq result) 
-        (generate-string {:success "Procesado con éxito!"})
-        (generate-string {:error "No se puede procesar!"})))
+      (if (seq result)
+        (generate-string {:success success-msg})
+        (generate-string {:error "No se puede procesar!"}))
+      result)
     (catch Exception e (.getMessage e))))
 ;; End upload form
 
@@ -369,8 +371,8 @@
   [params table & args]
   (try
     (if-not (nil? (:file params))
-      (process-upload-form params table (first (:path args)))
-      (process-regular-form params table))
+      (process-upload-form params table  (or (:success-msg (first args)) "Procesado con éxito!"))
+      (process-regular-form params table (or (:success-msg (first args)) "Procesado con éxito!")))
     (catch Exception e (.getMessage e))))
 
 (defn build-form-delete

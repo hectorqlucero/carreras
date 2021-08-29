@@ -19,6 +19,7 @@
   (list
    [:li.nav-item [:a.nav-link {:href "/carrera"} "Carreras"]]
    [:li.nav-item [:a.nav-link {:href "/categorias"} "Categorias"]]
+   [:li.nav-item [:a.nav-link {:href "/mensajes"} "Mensajes"]]
    [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]]
    [:li.nav-item [:a.nav-link {:href "/display/registered"} "Registrados"]]))
 

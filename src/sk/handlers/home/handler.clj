@@ -3,10 +3,14 @@
             [noir.response :refer [redirect]]
             [noir.session :as session]
             [noir.util.crypt :as crypt]
+            [pdfkit-clj.core :refer [gen-pdf]]
             [ring.util.anti-forgery :refer [anti-forgery-field]]
+            [sk.handlers.home.model :refer [correo-mensaje registrar-mensaje]]
             [sk.handlers.home.view :refer [login-script login-view registrar-view registrar-view-scripts]]
+            [sk.handlers.registered.view :refer [build-html]]
+            [sk.handlers.registered.model :refer [get-active-carrera-name]]
             [sk.layout :refer [application]]
-            [sk.models.crud :refer [Query build-form-save config db]]
+            [sk.models.crud :refer [Query Save build-postvars config crud-fix-id db]]
             [sk.models.email :refer [host send-email]]
             [sk.models.util :refer [get-session-id]]))
 
@@ -78,13 +82,42 @@
       body)
     (catch Exception e (.getMessage e))))
 
+(defn corredor-email-body
+  "Crear el cuerpo del correo electronico de confirmacion at corredor"
+  [params id]
+  (try
+    (let [nombre (str (:nombre params) " " (:apell_paterno params) " " (:apell_materno params))
+          email (:email params)
+          subject (str "Nuevo Registro - " (get-active-carrera-name))
+          content (str "<strong>Hola</strong> " nombre ",<br/>" (correo-mensaje))
+          body {:from (:email-user config)
+                :to email
+                :cd "hectorqlucero@gmail.com"
+                :subject subject
+                :body [{:type "text/html;charset=utf-8"
+                        :content content}
+                       {:type :inline
+                        :content (:path (bean (gen-pdf (build-html id))))
+                        :content-type "application/pdf"}]}]
+      body)
+    (catch Exception e (.getMessage e))))
+
 (defn registrar-save
   [{params :params}]
   (try
     (let [table "carreras"
-          email-body (email-body params)]
-      (when (send-email host email-body)
-        (build-form-save params table)))
+          id (crud-fix-id (:id params))
+          email-body (email-body params)
+          postvars (build-postvars table params)
+          success (registrar-mensaje)
+          result (Save db (keyword table) postvars ["id = ?" id])
+          corredor-email-body (corredor-email-body params (:generated_key (first result)))]
+      (if (seq result)
+        (do
+          (send-email host email-body)
+          (send-email host corredor-email-body)
+          (generate-string {:success success}))
+        (generate-string {:error "No se puede procesar!"})))
     (catch Exception e (.getMessage e))))
 ;; End registrar
 
