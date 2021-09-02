@@ -7,6 +7,7 @@
   (let [button-path (str "'" "/imprimir/registered/" (:id row) "'")
         comando (str "location.href = " button-path)]
     [:tr
+     [:td (:id row)]
      [:td (:nombre row)]
      [:td (:apell_paterno row)]
      [:td (:apell_materno row)]
@@ -15,6 +16,12 @@
      [:td (:telefono row)]
      [:td (:email row)]
      [:td (:club row)]
+     [:td [:input#numero {:name "numero_asignado"
+                          :type "textbox"
+                          :label ""
+                          :prompt "No asignado aqui..."
+                          :value (:numero_asignado row)
+                          :onblur (str "postValue(" (:id row) ", this.value)")}]]
      [:td [:button.btn.btn-outline-primary.c6 {:type "button"
                                                :onclick comando
                                                :target "_blank"} "Registro"]]]))
@@ -28,6 +35,7 @@
      [:table.table.table-striped.table-hover.table-bordered
       [:thead.table-primary
        [:tr
+        [:th "ID"]
         [:th "Nombre"]
         [:th "Apellido Paterno"]
         [:th "Apellido Materno"]
@@ -36,6 +44,7 @@
         [:th "Telefono"]
         [:th "Email"]
         [:th "Club"]
+        [:th "No Asignado"]
         [:th "Imprimir"]]]
       [:tbody (map my-body rows)]]]))
 
@@ -47,13 +56,13 @@
     (html5
      [:div
       [:center [:h2 [:strong (:carrera row)]]]
-      [:center [:h3 [:strong "FORMATO DE REGISTRO"]]][:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
-      [:span "DATOS PERSONALES:"][:span {:style "float:right;"} [:strong "Fecha: " (:date row)]]
+      [:center [:h3 [:strong "FORMATO DE REGISTRO"]]] [:span {:style "float:right;margin-left:10px;"} [:strong "identificador: " (:id row)]]
+      [:span "DATOS PERSONALES:"] [:span {:style "float:right;"} [:strong "Fecha: " (:date row)]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr
          [:td {:colspan 3
-               :style table-style} [:strong "Nombre: "] (str (:nombre row) "&nbsp;"(:apell_paterno row) "&nbsp;"(:apell_materno row))]]
+               :style table-style} [:strong "Nombre: "] (str (:nombre row) "&nbsp;" (:apell_paterno row) "&nbsp;" (:apell_materno row))]]
         [:tr
          [:td {:style table-style} [:strong "Categoria: "] (:categoria row)]
          [:td {:colspan 2
@@ -71,9 +80,9 @@
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr
-         [:td {:style table-style} [:strong "Fecha de Registro: "] [:span {:style "float:right;"} [:strong "No: "]"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]]]
+         [:td {:style table-style} [:strong "Fecha de Registro: "] [:span {:style "float:right;"} [:strong "No: "] "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]]]
         [:tr
-         [:td {:style table-style}[:strong "Costo del Evento el día de registro $ : "]]]]]
+         [:td {:style table-style} [:strong "Costo del Evento el día de registro $ : "]]]]]
       [:table {:style "margin-top:5px;border:1px solid black;border-radius:13px;border-spacing:0;padding:13px;font-size:0.9em;width:100%;"}
        [:tbody
         [:tr {:align "center"}
@@ -93,16 +102,16 @@
         [:tr {:align "justify"}
          [:td {:style "font-size:0.5em;"} (:p4 row)]]
         [:tr {:align "center"}
-         [:td {:style "font-size:0.7em;"}[:strong (:d1 row)]]]
+         [:td {:style "font-size:0.7em;"} [:strong (:d1 row)]]]
         [:tr {:align "center"}
-         [:td {:style "font-size:0.7em;"}[:strong (:d2 row)]]]]]
-         [:br]
-         [:br]
-         [:br]
-         [:br]
-         [:div {:style "width:100%;font-size:1em;font-weight:bold;text:center;"}
-          [:center [:hr {:style "width:70%;"}]]
-          [:center [:p [:strong "Firma y Aceptación del participante y/o tutor:"]]]]])))
+         [:td {:style "font-size:0.7em;"} [:strong (:d2 row)]]]]]
+      [:br]
+      [:br]
+      [:br]
+      [:br]
+      [:div {:style "width:100%;font-size:1em;font-weight:bold;text:center;"}
+       [:center [:hr {:style "width:70%;"}]]
+       [:center [:p [:strong "Firma y Aceptación del participante y/o tutor:"]]]]])))
 
 (defn registered-pdf [id]
   (let [html (build-html id)
@@ -112,3 +121,15 @@
                "Cache-Control" "no-cache,no-store,max-age=0,must-revalidate,pre-check=0,post-check=0"}
      :body (as-stream (gen-pdf html
                                :margin {:top 20 :right 15 :bottom 50 :left 15}))}))
+
+(defn registered-js []
+  [:script
+   (str "function postValue(id,no) {
+         $.get('/update/registered/'+id+'/'+no, function(data) {
+           var dta = JSON.parse(data);
+           $.messager.show({
+             title: 'Estatus',
+             msg: dta.message
+           })
+         })
+   }")])

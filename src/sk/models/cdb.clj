@@ -80,6 +80,7 @@
   club varchar(100) DEFAULT NULL,
   carrera_id int NOT NULL,
   categoria_id int NOT NULL,
+  numero_asignado varchar(100) DEFAULT NULL,
   last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   CONSTRAINT fk_carreras_carrera_id FOREIGN KEY (carrera_id) REFERENCES carrera (id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT fk_carreras_categoria_id FOREIGN KEY (categoria_id) REFERENCES categorias (id) ON UPDATE CASCADE ON DELETE CASCADE

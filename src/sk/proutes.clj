@@ -34,12 +34,13 @@
   ;; Start display registered
   (GET "/display/registered" req [] (registered/registered req))
   (GET "/imprimir/registered/:id" [id] (registered/imprimir id))
+  (GET "/update/registered/:id/:no" [id no] (registered/update-db id no))
   ;; End display registered
 
 ;; Start categorias
 (GET "/mensajes"  req [] (mensajes/mensajes req))
 (POST "/mensajes" req [] (mensajes/mensajes-grid req))
-(GET "/mensajes/edit/:id" [id] (mensajes/mensajes-form id))
+(GET "/mensajes/edit/:id/:no" [id no] (mensajes/mensajes-form id no))
 (POST "/mensajes/save" req [] (mensajes/mensajes-save req))
 (POST "/mensajes/delete" req [] (mensajes/mensajes-delete req))
 ;; End categorias
