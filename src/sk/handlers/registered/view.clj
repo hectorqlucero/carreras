@@ -3,10 +3,13 @@
             [pdfkit-clj.core :refer [as-stream gen-pdf]]
             [sk.handlers.registered.model :refer [get-active-carrera-name get-registered get-register-row]]))
 
+(def cnt (atom 0))
+
 (defn my-body [row]
   (let [button-path (str "'" "/imprimir/registered/" (:id row) "'")
         comando (str "location.href = " button-path)]
     [:tr
+     [:td (swap! cnt inc)]
      [:td (:id row)]
      [:td (:nombre row)]
      [:td (:apell_paterno row)]
@@ -27,7 +30,8 @@
                                                :target "_blank"} "Registro"]]]))
 
 (defn registered-view []
-  (let [rows (get-registered)]
+  (let [rows (get-registered)
+        cnt (reset! cnt 0)]
     [:div.container
      [:center
       [:h2 "CORREDORES REGISTRADOS"]
@@ -35,6 +39,7 @@
      [:table.table.table-striped.table-hover.table-bordered
       [:thead.table-primary
        [:tr
+        [:th "#"]
         [:th "ID"]
         [:th "Nombre"]
         [:th "Apellido Paterno"]
