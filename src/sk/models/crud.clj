@@ -325,8 +325,7 @@
           result (Save db (keyword table) postvars ["id = ?" id])]
       (if (seq result)
         (generate-string {:success success-msg})
-        (generate-string {:error "No se puede procesar!"}))
-      result)
+        (generate-string {:error "No se puede procesar!"})))
     (catch Exception e (.getMessge e))))
 
 ;; Start upload form
@@ -362,8 +361,7 @@
           result (Save db (keyword table) postvars ["id = ?" the-id])]
       (if (seq result)
         (generate-string {:success success-msg})
-        (generate-string {:error "No se puede procesar!"}))
-      result)
+        (generate-string {:error "No se puede procesar!"})))
     (catch Exception e (.getMessage e))))
 ;; End upload form
 
