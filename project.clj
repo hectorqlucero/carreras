@@ -10,6 +10,7 @@
                  [com.draines/postal "2.0.4"]
                  [cheshire "5.10.1"]
                  [clj-pdf "2.5.8" :exclusions [commons-codec]]
+                 [org.clojure/data.csv "1.0.0"]
                  [ondrs/barcode "0.1.0"]
                  [pdfkit-clj "0.1.7" :exclusions [commons-logging commons-codec]]
                  [clj-jwt "0.1.1"]

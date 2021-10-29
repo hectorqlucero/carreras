@@ -4,7 +4,8 @@
             [sk.handlers.carrera.handler :as carrera]
             [sk.handlers.categorias.handler :as categorias]
             [sk.handlers.registered.handler :as registered]
-            [sk.handlers.mensajes.handler :as mensajes]))
+            [sk.handlers.mensajes.handler :as mensajes]
+            [sk.handlers.csv.handler :as csv]))
 
 (defroutes proutes
   ;; Start users
@@ -37,11 +38,15 @@
   (GET "/update/registered/:id/:no" [id no] (registered/update-db id no))
   ;; End display registered
 
-;; Start categorias
-(GET "/mensajes"  req [] (mensajes/mensajes req))
-(POST "/mensajes" req [] (mensajes/mensajes-grid req))
-(GET "/mensajes/edit/:id/:no" [id no] (mensajes/mensajes-form id no))
-(POST "/mensajes/save" req [] (mensajes/mensajes-save req))
-(POST "/mensajes/delete" req [] (mensajes/mensajes-delete req))
-;; End categorias
+  ;; Start categorias
+  (GET "/mensajes"  req [] (mensajes/mensajes req))
+  (POST "/mensajes" req [] (mensajes/mensajes-grid req))
+  (GET "/mensajes/edit/:id/:no" [id no] (mensajes/mensajes-form id no))
+  (POST "/mensajes/save" req [] (mensajes/mensajes-save req))
+  (POST "/mensajes/delete" req [] (mensajes/mensajes-delete req))
+  ;; End categorias
+
+  ;; Start csv
+  (GET "/carreras/csv" [] (csv/create-csv))
+  ;; End csv
   )

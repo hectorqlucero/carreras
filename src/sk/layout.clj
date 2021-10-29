@@ -5,7 +5,8 @@
 
 (defn build-admin []
   (list
-   [:a.dropdown-item {:href "/admin/users"} "Usuarios"]))
+   [:a.dropdown-item {:href "/admin/users"} "Usuarios"]
+   [:a.dropdown-item {:href "/carreras/csv"} "Crear csv"]))
 
 (defn user-menus []
   [:li.nav-item [:a.nav-link {:href "/registrar"} "Registro"]])
