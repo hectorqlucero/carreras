@@ -61,7 +61,8 @@
 (defn create-csv []
   (convert-to-csv)
   {:status 200
-   :headers {"Content-Type" "text/csv"}
+   :headers {"Content-Type" "text/csv"
+             "Content-Disposition" "attachment;filename=carreras.csv"}
    :body (slurp "out-file.csv")})
 
 (comment
