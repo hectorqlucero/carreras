@@ -35,7 +35,7 @@
 (defn main
   [_]
   (try
-    (let [title "Bitacora"
+    (let [title "Carreras"
           ok (get-session-id)
           content [:div [:span {:style "margin-left:20px;"} (get-main-title)]]]
       (application title ok nil content))
