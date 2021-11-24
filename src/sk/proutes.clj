@@ -5,6 +5,7 @@
             [sk.handlers.categorias.handler :as categorias]
             [sk.handlers.registered.handler :as registered]
             [sk.handlers.mensajes.handler :as mensajes]
+            [sk.handlers.correos.handler :as correos]
             [sk.handlers.csv.handler :as csv]))
 
 (defroutes proutes
@@ -45,6 +46,11 @@
   (POST "/mensajes/save" req [] (mensajes/mensajes-save req))
   (POST "/mensajes/delete" req [] (mensajes/mensajes-delete req))
   ;; End categorias
+
+  ;; Start correos
+  (GET "/correos" req [] (correos/send-emails req))
+  (POST "/correos/save" req [] (correos/process-emails req))
+  ;; End correos
 
   ;; Start csv
   (GET "/carreras/csv" [] (csv/create-csv))
