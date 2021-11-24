@@ -24,7 +24,7 @@
   :aot [sk.core]
   :plugins [[lein-ancient "0.6.10"]
             [lein-pprint "1.1.2"]]
-  :uberjar-name "paseos1.jar"
+  :uberjar-name "paseos.jar"
   :target-path "target/%s"
   :ring {:handler sk.core/app
          :auto-reload? true

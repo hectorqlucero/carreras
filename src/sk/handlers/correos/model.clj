@@ -8,7 +8,8 @@
        (:id)))
 
 (defn get-emails [carrera-id]
-  (Query db ["select CONCAT(nombre,' ',apell_paterno,' ',apell_materno) as nombre,email from carreras where carrera_id = ?" carrera-id]))
+  (Query db ["select 
+             CONCAT(nombre,' ',IFNULL(apell_paterno,''),' ',IFNULL(apell_materno,'')) as nombre,email from carreras where carrera_id = ?" carrera-id]))
 
 (comment
   (get-active-carrera)
