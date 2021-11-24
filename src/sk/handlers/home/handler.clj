@@ -73,7 +73,7 @@
                        "<strong>Telefono:</strong> " telefono "</br></br>"
                        "<strong>Email:</strong> " email "</br></br>"
                        "<strong>Categoria:</strong> " categoria)
-          body {:from (:email-user config)
+          body {:from "ciclismobc@fastmail.com"
                 :to "marcopescador@hotmail.com"
                 :cc "hectorqlucero@gmail.com"
                 :subject subject
@@ -90,7 +90,7 @@
           email (:email params)
           subject (str "Nuevo Registro - " (get-active-carrera-name))
           content (str "<strong>Hola</strong> " nombre ",<br/>" (correo-mensaje))
-          body {:from (:email-user config)
+          body {:from "ciclismobc@fastmail.com"
                 :to email
                 :cd "hectorqlucero@gmail.com"
                 :subject subject

@@ -84,7 +84,7 @@
                             "Si usted no intento cambiar su contraseña o no desea cambiarla, simplemente ignore este mensage.</br></br></br>"
                             "Sinceramente,</br></br>"
                             "La Administración")
-          body         {:from    (:email-user config)
+          body         {:from   "ciclismobc@fastmail.com" 
                         :to      email
                         :subject subject
                         :body    [{:type    "text/html;charset=utf-8"
